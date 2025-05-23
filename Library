@@ -1,72 +1,46 @@
-local TweenService = game:GetService("TweenService")
+local ScreenGui1 = Instance.new("ScreenGui") 
+ScreenGui1.Parent = game.CoreGui
 
-local LiteXNotification = {}
+local Frame1 = Instance.new("Frame") 
+Frame1.Parent = ScreenGui1
+Frame1.Size = UDim2.new(0, 190, 0, 40)
+Frame1.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+Frame1.Position = UDim2.new(0, 570, 0, 0)
+Frame1.Active = true
+Frame1.Draggable = false
 
-function LiteXNotification:SendNotification(message, imageId, duration)
-    duration = duration or 3
-    message = message or "Thông báo"
-    imageId = imageId or "rbxassetid://4483345998" -- icon mặc định
+local UICorner1 = Instance.new("UICorner") 
+UICorner1.Parent = Frame1
+UICorner1.CornerRadius = UDim.new(0, 1)
 
-    local gui = Instance.new("ScreenGui")
-    gui.Name = "LiteXNotification"
-    gui.ResetOnSpawn = false
-    gui.IgnoreGuiInset = true
-    pcall(function()
-        gui.Parent = game:GetService("CoreGui")
-    end)
+local TextLabel1 = Instance.new("TextLabel") 
+TextLabel1.Parent = Frame1
+TextLabel1.Size = UDim2.new(0, 146, 0, 22)
+TextLabel1.Position = UDim2.new(0, 40, 0, 8)
+TextLabel1.Font = Enum.Font.Legacy
+TextLabel1.Text = "TextHere"
+TextLabel1.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel1.BackgroundTransparency = 1
+TextLabel1.TextWrapped = false
+TextLabel1.TextScaled = true
 
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 190, 0, 40)
-    frame.Position = UDim2.new(0, 570, 0, -50)
-    frame.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
-    frame.BorderSizePixel = 0
-    frame.Parent = gui
+local ImageLabel1 = Instance.new("ImageLabel") 
+ImageLabel1.Parent = Frame1
+ImageLabel1.Size = UDim2.new(0, 33, 0, 33)
+ImageLabel1.Position = UDim2.new(0, 7, 0, 3)
+ImageLabel1.BackgroundTransparency = 1
+ImageLabel1.Image = "rbxassetid://Image_Id"
 
-    local corner1 = Instance.new("UICorner", frame)
-    corner1.CornerRadius = UDim.new(0, 1)
+local UICorner1 = Instance.new("UICorner") 
+UICorner1.Parent = ImageLabel1
+UICorner1.CornerRadius = UDim.new(0.2, 0)
 
-    local label = Instance.new("TextLabel", frame)
-    label.Size = UDim2.new(0, 146, 0, 22)
-    label.Position = UDim2.new(0, 40, 0, 8)
-    label.Font = Enum.Font.Legacy
-    label.Text = message
-    label.TextColor3 = Color3.new(1, 1, 1)
-    label.BackgroundTransparency = 1
-    label.TextScaled = true
-    label.TextWrapped = true
+local Frame2 = Instance.new("Frame") 
+Frame2.Parent = Frame1
+Frame2.BackgroundColor3 = Color3.fromRGB(255,255,0)
+Frame2.Size = UDim2.new(0, 190, 0, 2)
+Frame2.Position = UDim2.new(0, 0, 0, 38)
 
-    local icon = Instance.new("ImageLabel", frame)
-    icon.Size = UDim2.new(0, 33, 0, 33)
-    icon.Position = UDim2.new(0, 7, 0, 3)
-    icon.BackgroundTransparency = 1
-    icon.Image = imageId
-
-    local iconCorner = Instance.new("UICorner", icon)
-    iconCorner.CornerRadius = UDim.new(0.2, 0)
-
-    local line = Instance.new("Frame", frame)
-    line.Size = UDim2.new(0, 190, 0, 2)
-    line.Position = UDim2.new(0, 0, 0, 38)
-    line.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
-
-    local lineCorner = Instance.new("UICorner", line)
-    lineCorner.CornerRadius = UDim.new(0.2, 0)
-
-    -- Tween In
-    local tweenIn = TweenService:Create(frame, TweenInfo.new(0.4), {
-        Position = UDim2.new(0, 570, 0, 20)
-    })
-    tweenIn:Play()
-
-    -- Auto remove after duration
-    task.delay(duration, function()
-        local tweenOut = TweenService:Create(frame, TweenInfo.new(0.3), {
-            Position = UDim2.new(0, 570, 0, -60)
-        })
-        tweenOut:Play()
-        tweenOut.Completed:Wait()
-        gui:Destroy()
-    end)
-end
-
-return LiteXNotification
+local UICorner1 = Instance.new("UICorner") 
+UICorner1.Parent = Frame2
+UICorner1.CornerRadius = UDim.new(0.2, 0)
