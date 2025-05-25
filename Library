@@ -1,46 +1,39 @@
-local ScreenGui1 = Instance.new("ScreenGui") 
-ScreenGui1.Parent = game.CoreGui
+local NotificationLibrary = {}
 
-local Frame1 = Instance.new("Frame") 
-Frame1.Parent = ScreenGui1
-Frame1.Size = UDim2.new(0, 190, 0, 40)
-Frame1.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
-Frame1.Position = UDim2.new(0, 570, 0, 0)
-Frame1.Active = true
-Frame1.Draggable = false
+function NotificationLibrary:Show(message, duration)
+	local ScreenGui = Instance.new("ScreenGui")
+	local TextLabel = Instance.new("TextLabel")
 
-local UICorner1 = Instance.new("UICorner") 
-UICorner1.Parent = Frame1
-UICorner1.CornerRadius = UDim.new(0, 1)
+	ScreenGui.Name = "NotificationGui"
+	ScreenGui.ResetOnSpawn = false
+	ScreenGui.IgnoreGuiInset = true
+	ScreenGui.Parent = game:GetService("CoreGui")
 
-local TextLabel1 = Instance.new("TextLabel") 
-TextLabel1.Parent = Frame1
-TextLabel1.Size = UDim2.new(0, 146, 0, 22)
-TextLabel1.Position = UDim2.new(0, 40, 0, 8)
-TextLabel1.Font = Enum.Font.Legacy
-TextLabel1.Text = "TextHere"
-TextLabel1.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel1.BackgroundTransparency = 1
-TextLabel1.TextWrapped = false
-TextLabel1.TextScaled = true
+	TextLabel.Parent = ScreenGui
+	TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	TextLabel.Position = UDim2.new(0.5, 0, 0.4, 0)
+	TextLabel.Size = UDim2.new(0, 400, 0, 100)
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel.TextScaled = true
+	TextLabel.Font = Enum.Font.GothamBold
+	TextLabel.Text = ""
 
-local ImageLabel1 = Instance.new("ImageLabel") 
-ImageLabel1.Parent = Frame1
-ImageLabel1.Size = UDim2.new(0, 33, 0, 33)
-ImageLabel1.Position = UDim2.new(0, 7, 0, 3)
-ImageLabel1.BackgroundTransparency = 1
-ImageLabel1.Image = "rbxassetid://Image_Id"
+	-- Hiệu ứng hiện từng chữ
+	for i = 1, #message do
+		TextLabel.Text = string.sub(message, 1, i)
+		task.wait(0.05)
+	end
 
-local UICorner1 = Instance.new("UICorner") 
-UICorner1.Parent = ImageLabel1
-UICorner1.CornerRadius = UDim.new(0.2, 0)
+	task.wait(duration or 3)
 
-local Frame2 = Instance.new("Frame") 
-Frame2.Parent = Frame1
-Frame2.BackgroundColor3 = Color3.fromRGB(255,255,0)
-Frame2.Size = UDim2.new(0, 190, 0, 2)
-Frame2.Position = UDim2.new(0, 0, 0, 38)
+	-- Hiệu ứng biến mất
+	for i = #message, 1, -1 do
+		TextLabel.Text = string.sub(message, 1, i - 1)
+		task.wait(0.05)
+	end
 
-local UICorner1 = Instance.new("UICorner") 
-UICorner1.Parent = Frame2
-UICorner1.CornerRadius = UDim.new(0.2, 0)
+	ScreenGui:Destroy()
+end
+
+return NotificationLibrary
